@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manzil2U | شركة منزلك للوساطة والتسويق العقاري</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emeraldDeep: '#123524',
+            emeraldMid: '#1B4D35',
+            emeraldLight: '#E8F0EC',
+            ivoryWarm: '#F7F5F0',
+            ivoryCard: '#FFFFFF',
+            bronzeChampagne: '#C5A059',
+            bronzeDark: '#9E7B36',
+            bronzeSoft: '#F6F0E4',
+            slateInk: '#121815'
+          },
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-bronzeChampagne selection:text-emeraldDeep">
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- Top Security & Brokerage Bar -->
+  <div class="bg-[#091B12] text-ivoryWarm/85 text-[11px] py-2 px-4 border-b border-bronzeChampagne/20">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 rounded bg-bronzeChampagne/20 text-bronzeChampagne font-bold">وسيط عقاري معتمد</span>
+        <span>شركة Manzil2U للتسويق والوساطة العقارية — تواصل مباشر مع الشركة وسرية تامة لبيانات الملاك</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-emerald-400 font-bold flex items-center gap-1">🔒 حماية XSS + SHA-256 نشطة</span>
+        <span>|</span>
+        <span>الخط الساخن للشركة: <strong class="text-bronzeChampagne" dir="ltr">0122 159 2040</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Corporate Header -->
+  <header class="luxury-gradient text-ivoryWarm sticky top-0 z-40 border-b border-bronzeChampagne/30 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-3">
+        <!-- Brand Logo -->
+        <button type="button" onclick="switchView('explore')" class="flex items-center gap-3 text-right group focus:outline-none">
+          <div class="w-12 h-12 rounded-2xl bronze-gradient flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+            <svg class="w-7 h-7 text-emeraldDeep" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V21a1 1 0 01-1 1h-5.5v-6.5h-5V22H4a1 1 0 01-1-1V10.5z" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="brand-en text-2xl font-bold text-bronzeChampagne">Manzil2U</span>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-white/10 text-ivoryWarm border border-bronzeChampagne/40 font-bold">شركة منزلك العقارية</span>
+            </div>
+            <p class="text-[11px] text-ivoryWarm/75 hidden sm:block">المنصة الرسمية لعرض وتسويق العقارات بإشراف ووساطة الشركة</p>
+          </div>
+        </button>
+
+        <!-- Primary Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1.5 bg-black/25 p-1.5 rounded-2xl border border-white/10">
+          <button type="button" id="nav-explore" onclick="switchView('explore')" class="px-4 py-2 rounded-xl text-xs lg:text-sm transition-all flex items-center gap-2 nav-btn-active">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            <span>معرض وحدات الشركة</span>
+          </button>
+          <button type="button" id="nav-add" onclick="switchView('add')" class="px-4 py-2 rounded-xl text-xs lg:text-sm transition-all flex items-center gap-2 text-ivoryWarm/90 hover:bg-white/10">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>اعرض شقتك عبر الشركة</span>
+          </button>
+          <button type="button" id="nav-chat" onclick="switchView('chat')" class="px-4 py-2 rounded-xl text-xs lg:text-sm transition-all flex items-center gap-2 text-ivoryWarm/90 hover:bg-white/10 relative">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <span>شات خدمة عملاء الشركة</span>
+            <span id="unreadBadgeNav" class="bg-bronzeChampagne text-emeraldDeep text-[11px] font-extrabold px-1.5 py-0.5 rounded-full">0</span>
+          </button>
+          <button type="button" id="nav-dashboard" onclick="switchView('dashboard')" class="px-4 py-2 rounded-xl text-xs lg:text-sm transition-all flex items-center gap-2 text-ivoryWarm/90 hover:bg-white/10">
+            <svg class="w-4 h-4 text-bronzeChampagne" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span>داش بورد الأدمن 🔒</span>
+          </button>
+          <button type="button" id="nav-auth" onclick="switchView('auth')" class="px-4 py-2 rounded-xl text-xs lg:text-sm transition-all flex items-center gap-2 text-ivoryWarm/90 hover:bg-white/10">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span id="navAuthLabel">حسابي / الدخول</span>
+          </button>
+        </nav>
+
+        <!-- Account Switcher & Role Selector -->
+        <div class="flex items-center gap-2">
+          <div class="relative">
+            <button type="button" onclick="toggleUserMenu()" class="flex items-center gap-2.5 bg-black/25 hover:bg-black/40 border border-bronzeChampagne/40 rounded-2xl px-3 py-1.5 transition-all">
+              <div id="headerUserAvatar" class="w-8 h-8 rounded-xl bronze-gradient text-emeraldDeep font-extrabold flex items-center justify-center text-sm shadow">م</div>
+              <div class="text-right hidden sm:block">
+                <div id="headerUserName" class="text-xs font-bold text-ivoryWarm leading-tight">م. ماجد ميلاد (الأدمن)</div>
+                <div id="headerUserRole" class="text-[10px] text-bronzeChampagne flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                  <span>مدير شركة Manzil2U</span>
+                </div>
+              </div>
+              <svg class="w-4 h-4 text-bronzeChampagne" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="userDropdownMenu" class="hidden absolute left-0 mt-2 w-80 rounded-2xl bg-ivoryCard text-slateInk shadow-2xl border border-bronzeChampagne/40 py-3 px-3.5 z-50">
+              <div class="pb-2 mb-2 border-b border-gray-200 flex items-center justify-between">
+                <div>
+                  <p class="text-[11px] font-bold text-gray-500">الجلسة النشطة</p>
+                  <p id="dropdownActiveEmail" class="text-xs font-extrabold text-emeraldDeep truncate">admin@example.invalid</p>
+                </div>
+                <button type="button" onclick="logoutToGuest()" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-red-50 text-red-700 hover:bg-red-100">خروج (وضع زائر)</button>
+              </div>
+              <p class="text-[11px] font-bold text-gray-500 mb-1.5">معاينة المنصة بصلاحيات مختلفة:</p>
+              <div id="quickSwitchAccountsList" class="space-y-1.5 mb-2"></div>
+              <div class="pt-2 border-t border-gray-200 flex items-center justify-between gap-2">
+                <button type="button" onclick="switchView('auth'); closeUserMenu();" class="flex-1 text-xs font-bold py-2 px-3 rounded-xl bg-emeraldDeep text-ivoryWarm hover:bg-emeraldMid transition">
+                  صفحة الدخول والحساب
+                </button>
+                <button type="button" onclick="switchView('dashboard'); closeUserMenu();" class="text-xs font-bold py-2 px-3 rounded-xl bg-bronzeSoft text-emeraldDeep hover:bg-bronzeChampagne/30 transition">
+                  لوحة الأدمن 🔒
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Bar -->
+      <div class="flex md:hidden items-center justify-between gap-1 py-2 border-t border-white/10 overflow-x-auto">
+        <button type="button" id="mnav-explore" onclick="switchView('explore')" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center whitespace-nowrap nav-btn-active">معرض الشركة</button>
+        <button type="button" id="mnav-add" onclick="switchView('add')" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold text-ivoryWarm/90 text-center whitespace-nowrap">+ اعرض شقتك</button>
+        <button type="button" id="mnav-chat" onclick="switchView('chat')" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold text-ivoryWarm/90 text-center whitespace-nowrap">شات الشركة (<span id="unreadBadgeMobile">0</span>)</button>
+        <button type="button" id="mnav-dashboard" onclick="switchView('dashboard')" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold text-ivoryWarm/90 text-center whitespace-nowrap">الأدمن 🔒</button>
+        <button type="button" id="mnav-auth" onclick="switchView('auth')" class="flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold text-ivoryWarm/90 text-center whitespace-nowrap">حسابي</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ==================== VIEW 1: EXPLORE BROKERAGE LISTINGS ==================== -->
+    <section id="view-explore" class="space-y-6 animate-fade">
+      <!-- Redesigned Corporate Brokerage Banner -->
+      <div class="obsidian-card rounded-3xl p-6 sm:p-8 lg:p-10 text-ivoryWarm relative overflow-hidden border border-bronzeChampagne/40 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1 rounded-full bg-bronzeChampagne/15 border border-bronzeChampagne/40 text-bronzeChampagne text-xs font-extrabold">
+              <span>🏢 شركة Manzil2U للوساطة والتسويق العقاري</span>
+              <span>•</span>
+              <span>أمان وموثوقية 100%</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-black leading-tight">
+              نحن الوسيط العقاري المعتمد بين <span class="text-bronzeChampagne">المالك والمشتري</span> بسرية وأمان تام
+            </h1>
+            <p class="text-xs sm:text-sm text-ivoryWarm/80 leading-relaxed">
+              تتولى شركة <strong>Manzil2U</strong> عرض وتسويق الشقق مباشرة، كما نتيح لأي مالك مسجل عرض وحدته عبر منصتنا مع <strong>إخفاء رقم هاتفه وبياناته الشخصية عن الجمهور</strong> (تظهر للإدارة فقط). يتواصل المشتري مع الشركة مباشرة، ونحن نتولى تنظيم المعاينة وإتمام التعاقد بأمان.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button type="button" onclick="switchView('add')" class="bronze-gradient text-emeraldDeep font-black px-5 py-3 rounded-2xl text-xs sm:text-sm shadow-lg hover:opacity-95 transition flex items-center gap-2">
+                <span>+ اعرض شقتك الآن (كمالك أو كشركة)</span>
+              </button>
+              <button type="button" onclick="switchView('chat')" class="bg-white/10 hover:bg-white/15 text-ivoryWarm border border-bronzeChampagne/40 font-bold px-5 py-3 rounded-2xl text-xs sm:text-sm transition flex items-center gap-2">
+                <span>💬 تحدث مع مبيعات الشركة</span>
+              </button>
+              <button type="button" onclick="toggleSavedFilter()" id="btnSavedOnly" class="bg-white/5 hover:bg-white/10 text-ivoryWarm border border-white/20 font-semibold px-4 py-3 rounded-2xl text-xs sm:text-sm transition flex items-center gap-1.5">
+                <span id="savedFilterIcon">🤍</span>
+                <span>المفضلة (<span id="savedCountChip">0</span>)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3-Step Brokerage Workflow Box -->
+          <div class="lg:col-span-5 bg-white/5 rounded-2xl p-5 border border-bronzeChampagne/30 space-y-3">
+            <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+              <span class="text-xs font-extrabold text-bronzeChampagne">كيف تعمل منظومة الوساطة في Manzil2U؟</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">نظام مؤمّن</span>
+            </div>
+            <div class="space-y-2.5 text-xs">
+              <div class="flex items-start gap-3 bg-black/30 p-3 rounded-xl border border-white/5">
+                <span class="w-6 h-6 rounded-lg bronze-gradient text-emeraldDeep font-black flex items-center justify-center shrink-0">1</span>
+                <div>
+                  <div class="font-bold text-ivoryWarm">الشركة أو المالك المسجل يضيف الشقة</div>
+                  <p class="text-[11px] text-ivoryWarm/70">يُشترط تسجيل الدخول، ويُحفظ رقم المالك سرياً في لوحة الأدمن فقط.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-black/30 p-3 rounded-xl border border-white/5">
+                <span class="w-6 h-6 rounded-lg bronze-gradient text-emeraldDeep font-black flex items-center justify-center shrink-0">2</span>
+                <div>
+                  <div class="font-bold text-ivoryWarm">المشتري يتصفح ويتواصل مع الشركة</div>
+                  <p class="text-[11px] text-ivoryWarm/70">تظهر الشقة بكود رسمي للشركة، ويراسل المشتري خدمة عملاء Manzil2U.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-black/30 p-3 rounded-xl border border-white/5">
+                <span class="w-6 h-6 rounded-lg bronze-gradient text-emeraldDeep font-black flex items-center justify-center shrink-0">3</span>
+                <div>
+                  <div class="font-bold text-ivoryWarm">الأدمن يربط الطرفين ويعتمد الصفقة</div>
+                  <p class="text-[11px] text-ivoryWarm/70">يراجع الأدمن رقم المالك وطلب المشتري من الداش بورد وينسق المعاينة.</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 pt-1 text-center">
+              <div class="bg-emeraldDeep/60 py-2 px-3 rounded-xl border border-bronzeChampagne/20">
+                <span class="text-[10px] text-ivoryWarm/70 block">الوحدات المنشورة حالياً</span>
+                <span id="heroStatListings" class="text-lg font-black text-bronzeChampagne">0</span>
+              </div>
+              <div class="bg-emeraldDeep/60 py-2 px-3 rounded-xl border border-bronzeChampagne/20">
+                <span class="text-[10px] text-ivoryWarm/70 block">الأعضاء المسجلون</span>
+                <span id="heroStatUsers" class="text-lg font-black text-ivoryWarm">2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter & Search Bar -->
+      <div class="bg-ivoryCard rounded-2xl p-4 sm:p-5 border border-bronzeChampagne/30 card-shadow space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+          <div class="lg:col-span-2">
+            <label for="searchInput" class="block text-xs font-bold text-emeraldDeep mb-1">بحث بكود الوحدة أو المنطقة أو الوصف</label>
+            <input id="searchInput" type="text" oninput="renderProperties()" placeholder="مثال: المنيا الجديدة، التجمع، #M2U..." class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/60 px-3.5 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+          </div>
+          <div>
+            <label for="filterPurpose" class="block text-xs font-bold text-emeraldDeep mb-1">نوع العرض</label>
+            <select id="filterPurpose" onchange="renderProperties()" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/60 px-3 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+              <option value="all">الكل (بيع وإيجار)</option>
+              <option value="تمليك">للبيع (تمليك)</option>
+              <option value="إيجار">للإيجار الشهري</option>
+            </select>
+          </div>
+          <div>
+            <label for="filterCity" class="block text-xs font-bold text-emeraldDeep mb-1">المدينة</label>
+            <select id="filterCity" onchange="renderProperties()" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/60 px-3 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+              <option value="all">كل المدن</option>
+              <option value="المنيا الجديدة">المنيا الجديدة</option>
+              <option value="المنيا">المنيا</option>
+              <option value="القاهرة الجديدة">القاهرة الجديدة</option>
+              <option value="الشيخ زايد">الشيخ زايد</option>
+              <option value="الإسكندرية">الإسكندرية</option>
+            </select>
+          </div>
+          <div>
+            <label for="filterType" class="block text-xs font-bold text-emeraldDeep mb-1">نوع الوحدة</label>
+            <select id="filterType" onchange="renderProperties()" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/60 px-3 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+              <option value="all">كل الوحدات</option>
+              <option value="شقة فاخرة">شقة فاخرة</option>
+              <option value="دوبلكس">دوبلكس</option>
+              <option value="بنتهاوس">بنتهاوس</option>
+              <option value="شقة عائلية">شقة عائلية</option>
+            </select>
+          </div>
+          <div>
+            <label for="sortOrder" class="block text-xs font-bold text-emeraldDeep mb-1">الترتيب</label>
+            <select id="sortOrder" onchange="renderProperties()" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/60 px-3 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+              <option value="featured">الأحدث والأبرز</option>
+              <option value="price-asc">السعر: الأقل للأعلى</option>
+              <option value="price-desc">السعر: الأعلى للأقل</option>
+              <option value="area-desc">المساحة: الأكبر أولاً</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-gray-200/80 text-xs">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-bold text-gray-600">عدد الغرف:</span>
+            <button type="button" onclick="setRoomFilter(0)" id="roomBtn-0" class="px-3 py-1 rounded-lg font-bold bg-emeraldDeep text-ivoryWarm">الكل</button>
+            <button type="button" onclick="setRoomFilter(2)" id="roomBtn-2" class="px-3 py-1 rounded-lg font-semibold bg-ivoryWarm text-slateInk hover:bg-bronzeSoft">+2 غرف</button>
+            <button type="button" onclick="setRoomFilter(3)" id="roomBtn-3" class="px-3 py-1 rounded-lg font-semibold bg-ivoryWarm text-slateInk hover:bg-bronzeSoft">+3 غرف</button>
+            <button type="button" onclick="setRoomFilter(4)" id="roomBtn-4" class="px-3 py-1 rounded-lg font-semibold bg-ivoryWarm text-slateInk hover:bg-bronzeSoft">+4 غرف</button>
+          </div>
+          <div class="flex items-center gap-3">
+            <span id="resultsCounterText" class="font-bold text-emeraldDeep">عرض 0 عقارات متاحة</span>
+            <button type="button" onclick="resetFilters()" class="text-bronzeDark hover:text-emeraldDeep font-bold underline">إعادة ضبط الفلاتر</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Properties Grid (Starts Empty so User can add their own!) -->
+      <div id="propertiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- ==================== VIEW 2: ADD / SUBMIT PROPERTY ==================== -->
+    <section id="view-add" class="hidden space-y-6 animate-fade">
+      <!-- Gate shown when user is NOT logged in (Guest) -->
+      <div id="addPropertyGuestGate" class="hidden bg-ivoryCard rounded-3xl border border-bronzeChampagne/40 card-shadow p-8 sm:p-12 text-center max-w-2xl mx-auto space-y-4">
+        <div class="w-16 h-16 rounded-2xl luxury-gradient text-bronzeChampagne flex items-center justify-center mx-auto text-2xl shadow-lg">🔒</div>
+        <h2 class="text-2xl font-black text-emeraldDeep">يجب تسجيل الدخول أولاً لعرض شقتك</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          حرصاً من شركة <strong>Manzil2U</strong> على جدية العروض وحماية الملاك والمشترين، يُشترط تسجيل الدخول بحساب موثق برقم الهاتف قبل إضافة أي شقة. رقم هاتفك يظهر <strong>للأدمن فقط</strong> ولا يظهر للجمهور.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <button type="button" onclick="switchView('auth')" class="bronze-gradient text-emeraldDeep font-black px-6 py-3 rounded-2xl text-sm shadow-lg">
+            تسجيل الدخول أو إنشاء حساب الآن
+          </button>
+          <button type="button" onclick="switchView('explore')" class="px-5 py-3 rounded-2xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100">
+            العودة لتصفح الموقع
+          </button>
+        </div>
+      </div>
+
+      <!-- Form shown when logged in (Admin or Registered User) -->
+      <div id="addPropertyFormWrapper" class="bg-ivoryCard rounded-3xl border border-bronzeChampagne/30 card-shadow overflow-hidden">
+        <div class="luxury-gradient p-6 sm:p-8 text-ivoryWarm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-bold text-bronzeChampagne">
+              <span id="postFormBadgeRole">نشر عقار رسمي باسم شركة Manzil2U</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold mt-1">إضافة وعرض شقة على المنصة</h2>
+            <p class="text-xs sm:text-sm text-ivoryWarm/85 mt-1">
+              الحساب المسجل: <span id="postFormOwnerName" class="text-bronzeChampagne font-bold">م. ماجد ميلاد</span> — <strong class="text-emerald-300">🔒 رقم هاتف المالك يُحفظ سرياً في لوحة الأدمن فقط، ويتواصل المشترون مع الشركة كوسيط.</strong>
+            </p>
+          </div>
+          <button type="button" onclick="fillDemoListing()" class="self-start sm:self-center px-4 py-2.5 rounded-xl bg-bronzeChampagne/20 hover:bg-bronzeChampagne/30 text-bronzeChampagne border border-bronzeChampagne/40 text-xs font-bold transition">
+            ✨ تعبئة سريعة لبيانات شقة للتجربة
+          </button>
+        </div>
+
+        <form id="addPropertyForm" onsubmit="handleCreateProperty(event)" class="p-6 sm:p-8 space-y-6">
+          <!-- Secret Owner Contact Box (Visible only to Admin) -->
+          <div class="p-4 rounded-2xl bg-emeraldLight/70 border border-emeraldDeep/20 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-3 flex items-center justify-between">
+              <span class="text-xs font-extrabold text-emeraldDeep flex items-center gap-1.5">
+                <span>🔒 بيانات مالك العقار الحقيقية (سرية — تظهر للأدمن فقط ولا تظهر في الإعلان للجمهور)</span>
+              </span>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emeraldDeep text-bronzeChampagne font-bold">مخفي عن المشترين</span>
+            </div>
+            <div>
+              <label for="propOwnerRealName" class="block text-xs font-bold text-emeraldDeep mb-1">اسم المالك أو المفوض *</label>
+              <input id="propOwnerRealName" type="text" required placeholder="اسم صاحب الشقة" class="w-full rounded-xl border border-gray-300 bg-white px-3.5 py-2 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propOwnerSecretPhone" class="block text-xs font-bold text-emeraldDeep mb-1">رقم موبايل المالك (يظهر للأدمن فقط) *</label>
+              <input id="propOwnerSecretPhone" type="tel" required placeholder="01xxxxxxxxx" dir="ltr" class="w-full rounded-xl border border-gray-300 bg-white px-3.5 py-2 text-sm text-right focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propSourceType" class="block text-xs font-bold text-emeraldDeep mb-1">جهة العرض</label>
+              <select id="propSourceType" class="w-full rounded-xl border border-gray-300 bg-white px-3.5 py-2 text-sm focus:outline-none focus:border-emeraldDeep">
+                <option value="وحدة حصرية لشركة Manzil2U">وحدة حصرية لشركة Manzil2U</option>
+                <option value="معروض من مالك مسجل (بوساطة الشركة)">معروض من مالك مسجل (بوساطة الشركة)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="md:col-span-2">
+              <label for="propTitle" class="block text-xs font-bold text-emeraldDeep mb-1.5">عنوان الشقة المعروض للجمهور *</label>
+              <input id="propTitle" type="text" required placeholder="مثال: شقة فاخرة بالمنيا الجديدة الحي السياحي إطلالة مفتوحة" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propCity" class="block text-xs font-bold text-emeraldDeep mb-1.5">المدينة *</label>
+              <select id="propCity" required class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+                <option value="المنيا الجديدة">المنيا الجديدة</option>
+                <option value="المنيا">المنيا</option>
+                <option value="القاهرة الجديدة">القاهرة الجديدة</option>
+                <option value="الشيخ زايد">الشيخ زايد</option>
+                <option value="الإسكندرية">الإسكندرية</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="propDistrict" class="block text-xs font-bold text-emeraldDeep mb-1.5">الحي / المنطقة *</label>
+              <input id="propDistrict" type="text" required placeholder="مثال: الحي المتميز - المجاورة الثانية" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propPurpose" class="block text-xs font-bold text-emeraldDeep mb-1.5">نوع العرض *</label>
+              <select id="propPurpose" required class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+                <option value="تمليك">للبيع (تمليك)</option>
+                <option value="إيجار">للإيجار الشهري</option>
+              </select>
+            </div>
+            <div>
+              <label for="propType" class="block text-xs font-bold text-emeraldDeep mb-1.5">نوع العقار *</label>
+              <select id="propType" required class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+                <option value="شقة فاخرة">شقة فاخرة</option>
+                <option value="دوبلكس">دوبلكس</option>
+                <option value="بنتهاوس">بنتهاوس</option>
+                <option value="شقة عائلية">شقة عائلية</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="propPrice" class="block text-xs font-bold text-emeraldDeep mb-1.5">السعر المطلوب (ج.م) *</label>
+              <input id="propPrice" type="number" min="1000" step="500" required placeholder="مثال: 2650000" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propArea" class="block text-xs font-bold text-emeraldDeep mb-1.5">المساحة (م²) *</label>
+              <input id="propArea" type="number" min="40" max="2000" required placeholder="مثال: 185" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propFloor" class="block text-xs font-bold text-emeraldDeep mb-1.5">الدور والتشطيب *</label>
+              <input id="propFloor" type="text" required placeholder="مثال: الدور الثالث • الترا سوبر لوكس" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+
+            <div>
+              <label for="propBeds" class="block text-xs font-bold text-emeraldDeep mb-1.5">عدد الغرف *</label>
+              <input id="propBeds" type="number" min="1" max="12" value="3" required class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propBaths" class="block text-xs font-bold text-emeraldDeep mb-1.5">عدد الحمامات *</label>
+              <input id="propBaths" type="number" min="1" max="10" value="2" required class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="propPayment" class="block text-xs font-bold text-emeraldDeep mb-1.5">نظام الدفع</label>
+              <select id="propPayment" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+                <option value="كاش أو تقسيط">كاش أو تقسيط مرن</option>
+                <option value="كاش فقط">كاش فقط</option>
+                <option value="تمويل عقاري متاح">متاح تمويل عقاري</option>
+                <option value="إيجار شهري بعقد سنوي">إيجار شهري</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Amenities -->
+          <div>
+            <label class="block text-xs font-bold text-emeraldDeep mb-2">المميزات والخدمات المتوفرة</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 text-xs">
+              <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-ivoryWarm/50 cursor-pointer">
+                <input type="checkbox" name="propAmenity" value="أسانسير حديث" checked class="accent-emeraldDeep" />
+                <span>أسانسير حديث</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-ivoryWarm/50 cursor-pointer">
+                <input type="checkbox" name="propAmenity" value="حصة في الجراج" checked class="accent-emeraldDeep" />
+                <span>حصة في الجراج</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-ivoryWarm/50 cursor-pointer">
+                <input type="checkbox" name="propAmenity" value="عدادات كاملة" checked class="accent-emeraldDeep" />
+                <span>عدادات كاملة</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-ivoryWarm/50 cursor-pointer">
+                <input type="checkbox" name="propAmenity" value="أمن وحراسة 24/7" class="accent-emeraldDeep" />
+                <span>أمن وحراسة 24/7</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-ivoryWarm/50 cursor-pointer">
+                <input type="checkbox" name="propAmenity" value="فيو مفتوح عالحديقة" checked class="accent-emeraldDeep" />
+                <span>فيو مفتوح عالحديقة</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-ivoryWarm/50 cursor-pointer">
+                <input type="checkbox" name="propAmenity" value="غاز طبيعي" class="accent-emeraldDeep" />
+                <span>غاز طبيعي</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Image Upload with Automatic Client-Side Compression for Fast Performance -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+            <div>
+              <label class="block text-xs font-bold text-emeraldDeep mb-1.5">ارفع صورة حقيقية للشقة من جهازك (يتم ضغطها تلقائياً لسرعة الأداء) أو اختر تصميماً</label>
+              <select id="propImagePreset" onchange="updateImagePreviewFromPreset()" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep mb-3">
+                <option value="0">واجهة معمارية 1: شقة مودرن فاخرة</option>
+                <option value="1">واجهة معمارية 2: دوبلكس رخامي بارتفاع مزدوج</option>
+                <option value="2">واجهة معمارية 3: بنتهاوس بإطلالة بانورامية</option>
+                <option value="3">واجهة معمارية 4: شقة عائلية بتصميم دافئ</option>
+              </select>
+              <input id="propImageUpload" type="file" accept="image/*" onchange="handleCustomImageUpload(event)" class="block w-full text-xs text-gray-600 file:ml-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emeraldDeep file:text-ivoryWarm hover:file:bg-emeraldMid" />
+            </div>
+            <div class="flex items-center gap-4 bg-ivoryWarm p-3 rounded-2xl border border-bronzeChampagne/30">
+              <img id="newPropPreviewImg" src="" alt="معاينة العقار" class="w-28 h-20 object-cover rounded-xl border border-bronzeChampagne/40 bg-emeraldDeep" />
+              <div class="text-xs space-y-1">
+                <div class="font-bold text-emeraldDeep">معاينة صورة الشقة</div>
+                <p class="text-gray-600">تُضغط الصور تلقائياً في المتصفح (WebP/JPEG) للحفاظ على سرعة الموقع الفائقة.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label for="propDesc" class="block text-xs font-bold text-emeraldDeep mb-1.5">وصف الشقة بالتفصيل (بدون كتابة أرقام هواتف داخل النص) *</label>
+            <textarea id="propDesc" rows="3" required placeholder="اكتب تفاصيل التقسيم الداخلي، التشطيب، القرب من الخدمات..." class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep"></textarea>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-end gap-3 pt-3 border-t border-gray-200">
+            <button type="button" onclick="switchView('explore')" class="px-5 py-2.5 rounded-xl border border-gray-300 text-sm font-bold text-gray-700 hover:bg-gray-100">إلغاء</button>
+            <button type="submit" class="bronze-gradient text-emeraldDeep font-black px-7 py-3 rounded-xl text-sm shadow-lg hover:opacity-95 transition">
+              🚀 نشر الشقة عبر شركة Manzil2U
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: COMPANY BROKERAGE CHAT ==================== -->
+    <section id="view-chat" class="hidden animate-fade">
+      <div class="bg-ivoryCard rounded-3xl border border-bronzeChampagne/30 card-shadow overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[600px]">
+        <!-- Threads List -->
+        <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-l border-gray-200 flex flex-col bg-ivoryWarm/40">
+          <div class="p-4 luxury-gradient text-ivoryWarm">
+            <div class="flex items-center justify-between">
+              <h2 class="text-base font-extrabold flex items-center gap-2">
+                <span>💬 مركز تواصل شركة Manzil2U</span>
+              </h2>
+              <span id="chatCurrentAccountTag" class="text-[11px] bg-bronzeChampagne/20 text-bronzeChampagne px-2.5 py-0.5 rounded-full border border-bronzeChampagne/40 font-bold">الأدمن</span>
+            </div>
+            <p class="text-[11px] text-ivoryWarm/75 mt-1">جميع استفسارات المشترين تصل إلى الشركة لتنسيق المعاينة مع المالك</p>
+            <div class="mt-3">
+              <input id="chatSearchInput" type="text" oninput="renderChatThreadsList()" placeholder="ابحث بكود الشقة أو اسم العميل..." class="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 text-xs text-ivoryWarm placeholder-ivoryWarm/60 focus:outline-none focus:border-bronzeChampagne" />
+            </div>
+          </div>
+          <div id="chatThreadsList" class="flex-1 overflow-y-auto divide-y divide-gray-200/70 max-h-96 lg:max-h-[480px] custom-scroll"></div>
+        </div>
+
+        <!-- Active Chat Window -->
+        <div class="lg:col-span-8 flex flex-col justify-between bg-ivoryCard">
+          <div id="activeChatHeader" class="p-4 border-b border-gray-200 bg-ivoryWarm/60 flex flex-wrap items-center justify-between gap-3"></div>
+          <div id="chatMessagesContainer" class="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 max-h-[380px] sm:max-h-[420px] custom-scroll bg-ivoryWarm/25"></div>
+
+          <!-- Quick Smart Replies -->
+          <div class="px-4 py-2 bg-bronzeSoft/60 border-t border-bronzeChampagne/20 flex items-center gap-2 overflow-x-auto text-xs">
+            <span class="font-bold text-emeraldDeep whitespace-nowrap">رسائل سريعة للشركة:</span>
+            <button type="button" onclick="sendQuickChatText('أريد التنسيق مع شركة Manzil2U لمعاينة هذه الشقة في أقرب موعد.')" class="px-2.5 py-1 rounded-lg bg-white border border-bronzeChampagne/40 text-emeraldDeep hover:bg-bronzeChampagne/20 whitespace-nowrap transition">طلب معاينة من الشركة</button>
+            <button type="button" onclick="sendQuickChatText('هل السعر قابل للتفاوض مع المالك عن طريق الشركة؟')" class="px-2.5 py-1 rounded-lg bg-white border border-bronzeChampagne/40 text-emeraldDeep hover:bg-bronzeChampagne/20 whitespace-nowrap transition">استفسار عن التفاوض</button>
+            <button type="button" onclick="openPriceOfferPrompt()" class="px-2.5 py-1 rounded-lg bg-emeraldDeep text-bronzeChampagne font-bold hover:bg-emeraldMid whitespace-nowrap transition">💰 تقديم عرض سعر رسمي للشركة</button>
+          </div>
+
+          <form onsubmit="handleSendMessage(event)" class="p-3.5 sm:p-4 border-t border-gray-200 bg-ivoryCard flex items-center gap-2.5">
+            <input id="chatMessageInput" type="text" placeholder="اكتب رسالتك هنا لمستشار المبيعات في شركة Manzil2U..." class="flex-1 rounded-2xl border border-gray-300 bg-ivoryWarm/60 px-4 py-3 text-sm focus:outline-none focus:border-emeraldDeep" />
+            <button type="submit" class="luxury-gradient text-bronzeChampagne font-extrabold px-5 py-3 rounded-2xl text-sm hover:opacity-95 transition flex items-center gap-2 shadow">
+              <span>إرسال</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: ADMIN-ONLY DASHBOARD (داش بورد الأدمن فقط) ==================== -->
+    <section id="view-dashboard" class="hidden space-y-6 animate-fade">
+      <!-- Non-Admin Access Denied Gate -->
+      <div id="adminAccessDeniedGate" class="hidden bg-ivoryCard rounded-3xl border border-red-300 card-shadow p-8 sm:p-12 text-center max-w-2xl mx-auto space-y-4">
+        <div class="w-16 h-16 rounded-2xl bg-red-100 text-red-700 flex items-center justify-center mx-auto text-3xl font-black">🛡️</div>
+        <h2 class="text-2xl font-black text-emeraldDeep">هذه اللوحة مخصصة لأدمن شركة Manzil2U فقط</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          تحتوي لوحة التحكم على أرقام هواتف الملاك السرية وطلبات الوساطة العقارية الخاصة بإدارة الشركة، ولا يُسمح للمستخدمين العاديين أو الزوار بالاطلاع عليها.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <button type="button" onclick="switchActiveUser('u1'); switchView('dashboard');" class="bronze-gradient text-emeraldDeep font-black px-6 py-3 rounded-2xl text-sm shadow-lg">
+            🔑 التبديل لحساب الأدمن (م. ماجد ميلاد) لفتح الداش بورد
+          </button>
+          <button type="button" onclick="switchView('explore')" class="px-5 py-3 rounded-2xl border border-gray-300 text-xs font-bold text-gray-700">
+            العودة للمعرض
+          </button>
+        </div>
+      </div>
+
+      <!-- Actual Admin Content -->
+      <div id="adminDashboardContent" class="space-y-6">
+        <div class="obsidian-card rounded-3xl p-6 sm:p-8 text-ivoryWarm border border-bronzeChampagne/40 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xl">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs text-bronzeChampagne font-bold mb-1">
+              <span>🛡️ غرفة عمليات الأدمن والوساطة العقارية</span>
+              <span>•</span>
+              <span id="dashActiveUserRole">صلاحية كاملة (Root Admin)</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black">داش بورد الإدارة — <span id="dashUserName" class="text-bronzeChampagne">م. ماجد ميلاد</span></h2>
+            <p class="text-xs sm:text-sm text-ivoryWarm/80 mt-1">تظهر هنا كافة أرقام هواتف الملاك السرية، الشقق المضافة من العملاء، وطلبات المشترين لربطهم ببعضهم كوسيط.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="switchView('add')" class="bronze-gradient text-emeraldDeep font-black px-4 py-2.5 rounded-xl text-xs shadow">
+              + إضافة عقار للشركة
+            </button>
+            <button type="button" onclick="switchDashboardScope()" id="dashScopeBtn" class="bg-white/10 hover:bg-white/15 text-ivoryWarm border border-bronzeChampagne/40 px-3.5 py-2.5 rounded-xl text-xs font-bold transition">
+              + إضافة شقة تجريبية للمعاينة
+            </button>
+            <button type="button" onclick="exportDatabaseJson()" class="bg-white/10 hover:bg-white/15 text-bronzeChampagne border border-bronzeChampagne/30 px-3.5 py-2.5 rounded-xl text-xs font-bold transition">
+              📥 تصدير قاعدة البيانات (JSON)
+            </button>
+            <button type="button" onclick="resetDemoState()" class="bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-400/30 px-3.5 py-2.5 rounded-xl text-xs font-bold transition">
+              🗑️ تفريغ الموقع بالكامل
+            </button>
+          </div>
+        </div>
+
+        <!-- Admin KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-ivoryCard p-5 rounded-2xl border border-bronzeChampagne/30 card-shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-gray-500">إجمالي الوحدات المسجلة</span>
+              <span class="w-9 h-9 rounded-xl bg-emeraldLight text-emeraldDeep flex items-center justify-center font-bold">🏢</span>
+            </div>
+            <div id="kpiListingsCount" class="text-3xl font-black text-emeraldDeep mt-2">0</div>
+            <p id="kpiListingsSub" class="text-xs text-emerald-700 font-semibold mt-1">جاهز لإضافة عقاراتك</p>
+          </div>
+
+          <div class="bg-ivoryCard p-5 rounded-2xl border border-bronzeChampagne/30 card-shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-gray-500">أرقام الملاك المحفوظة سرياً</span>
+              <span class="w-9 h-9 rounded-xl bg-bronzeSoft text-bronzeDark flex items-center justify-center font-bold">🔒</span>
+            </div>
+            <div id="kpiTotalViews" class="text-3xl font-black text-emeraldDeep mt-2">0</div>
+            <p class="text-xs text-bronzeDark font-semibold mt-1">مخفية عن الجمهور وتظهر لك فقط</p>
+          </div>
+
+          <div class="bg-ivoryCard p-5 rounded-2xl border border-bronzeChampagne/30 card-shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-gray-500">طلبات المشترين والربط</span>
+              <span class="w-9 h-9 rounded-xl bg-emeraldLight text-emeraldDeep flex items-center justify-center font-bold">🤝</span>
+            </div>
+            <div id="kpiActiveLeads" class="text-3xl font-black text-emeraldDeep mt-2">0</div>
+            <p id="kpiLeadsSub" class="text-xs text-emerald-700 font-semibold mt-1">طلبات معاينة وعروض شراء</p>
+          </div>
+
+          <div class="bg-ivoryCard p-5 rounded-2xl border border-bronzeChampagne/30 card-shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-gray-500">عمولة الوساطة المتوقعة (2.5%)</span>
+              <span class="w-9 h-9 rounded-xl bg-bronzeSoft text-bronzeDark flex items-center justify-center font-bold">💎</span>
+            </div>
+            <div id="kpiPortfolioValue" class="text-2xl font-black text-emeraldDeep mt-2">0 ج.م</div>
+            <p class="text-xs text-gray-500 font-semibold mt-1">من إجمالي وحدات التمليك</p>
+          </div>
+        </div>
+
+        <!-- Admin Brokerage Table (Shows Secret Owner Phone!) & Buyer Mediation Panel -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-8 bg-ivoryCard rounded-2xl border border-bronzeChampagne/30 card-shadow overflow-hidden">
+            <div class="p-5 border-b border-gray-200 flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-base font-extrabold text-emeraldDeep">جدول إدارة العقارات وأرقام الملاك السرية 🔒</h3>
+                <p class="text-xs text-gray-500">يظهر هنا رقم هاتف المالك الحقيقي للتواصل معه عند وجود مشتري جاد</p>
+              </div>
+              <button type="button" onclick="switchView('add')" class="text-xs font-bold px-3.5 py-2 rounded-xl bg-emeraldDeep text-bronzeChampagne hover:bg-emeraldMid">+ إضافة شقة</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-right text-xs">
+                <thead class="bg-ivoryWarm text-emeraldDeep font-extrabold border-b border-gray-200">
+                  <tr>
+                    <th class="py-3 px-3">كود ووصف الشقة</th>
+                    <th class="py-3 px-3">بيانات المالك السرية (للأدمن فقط 🔒)</th>
+                    <th class="py-3 px-3">السعر</th>
+                    <th class="py-3 px-3">الحالة</th>
+                    <th class="py-3 px-3">إجراءات الأدمن</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboardPropertiesTable" class="divide-y divide-gray-200"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Buyer Inquiries & Mediation Requests -->
+          <div class="lg:col-span-4 bg-ivoryCard rounded-2xl border border-bronzeChampagne/30 card-shadow p-5 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between border-b border-gray-200 pb-3 mb-3">
+                <div>
+                  <h3 class="text-base font-extrabold text-emeraldDeep">طلبات المشترين للربط بالمالك</h3>
+                  <p class="text-xs text-gray-500">المشتري يكلم الشركة وأنت توصله بالمالك</p>
+                </div>
+                <span id="appointmentsCountBadge" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-bronzeSoft text-emeraldDeep">0</span>
+              </div>
+              <div id="dashboardAppointmentsList" class="space-y-3 max-h-80 overflow-y-auto custom-scroll"></div>
+            </div>
+
+            <!-- Registered Accounts Directory for Admin -->
+            <div class="pt-3 border-t border-gray-200">
+              <h4 class="text-xs font-extrabold text-emeraldDeep mb-2">👥 دليل الأعضاء المسجلين وأرقام هواتفهم (سري للأدمن):</h4>
+              <div id="adminRegisteredUsersList" class="space-y-1.5 max-h-40 overflow-y-auto custom-scroll text-xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-7 bg-ivoryCard p-5 rounded-2xl border border-bronzeChampagne/30 card-shadow">
+            <h3 class="text-sm font-extrabold text-emeraldDeep mb-2">مؤشر النشاط والطلبات عبر شركة Manzil2U</h3>
+            <div class="relative h-60">
+              <canvas id="viewsChartCanvas"></canvas>
+            </div>
+          </div>
+          <div class="lg:col-span-5 bg-ivoryCard p-5 rounded-2xl border border-bronzeChampagne/30 card-shadow">
+            <h3 class="text-sm font-extrabold text-emeraldDeep mb-2">توزيع الوحدات العقارية حسب المدينة</h3>
+            <div class="relative h-60">
+              <canvas id="citiesChartCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 5: AUTHENTICATION & PROFILE ==================== -->
+    <section id="view-auth" class="hidden space-y-6 animate-fade">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-7 bg-ivoryCard rounded-3xl border border-bronzeChampagne/30 card-shadow overflow-hidden">
+          <div class="luxury-gradient p-6 text-ivoryWarm">
+            <span class="text-xs font-bold text-bronzeChampagne">بوابة التسجيل الموثقة (SHA-256 Protected)</span>
+            <h2 class="text-2xl font-extrabold mt-1">تسجيل الدخول وإنشاء حساب عضو</h2>
+            <p class="text-xs text-ivoryWarm/80 mt-1">تسجيل الدخول إلزامي لعرض شقتك، ويتم حفظ رقم هاتفك بشكل سري لدى إدارة الشركة فقط.</p>
+
+            <div class="grid grid-cols-2 gap-2 mt-5 bg-black/25 p-1 rounded-2xl">
+              <button type="button" id="authTabLogin" onclick="setAuthTab('login')" class="py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-bronzeChampagne text-emeraldDeep transition">
+                تسجيل الدخول
+              </button>
+              <button type="button" id="authTabRegister" onclick="setAuthTab('register')" class="py-2.5 rounded-xl text-xs sm:text-sm font-bold text-ivoryWarm hover:bg-white/10 transition">
+                إنشاء حساب جديد (مع رقم الموبايل)
+              </button>
+            </div>
+          </div>
+
+          <!-- Login Form -->
+          <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="p-6 sm:p-8 space-y-5">
+            <div>
+              <label for="loginEmail" class="block text-xs font-bold text-emeraldDeep mb-1.5">البريد الإلكتروني أو رقم الهاتف *</label>
+              <input id="loginEmail" type="text" required value="admin@example.invalid" placeholder="example@manzil2u.com" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-3 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <div>
+              <label for="loginPassword" class="block text-xs font-bold text-emeraldDeep mb-1.5">كلمة المرور *</label>
+              <input id="loginPassword" type="password" required class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-4 py-3 text-sm focus:outline-none focus:border-emeraldDeep" />
+            </div>
+            <button type="submit" class="w-full luxury-gradient text-bronzeChampagne font-extrabold py-3.5 rounded-2xl text-sm shadow-lg hover:opacity-95 transition">
+              دخول آمن إلى المنصة
+            </button>
+
+            <div class="pt-4 border-t border-gray-200">
+              <p class="text-xs font-bold text-emeraldDeep mb-2.5">⚡ تبديل سريع لتجربة الأدوار (أدمن الشركة / عميل عارض شقة / زائر):</p>
+              <div id="authPageAccountsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+            </div>
+          </form>
+
+          <!-- Register Form -->
+          <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="hidden p-6 sm:p-8 space-y-4">
+            <div class="p-3 rounded-xl bg-emeraldLight text-emeraldDeep text-xs font-bold">
+              🔒 رقم الموبايل الذي تسجله هنا يظهر فقط لأدمن شركة Manzil2U للتواصل معك عند وجود مشتري جاد أو لتنسيق المعاينة.
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="regName" class="block text-xs font-bold text-emeraldDeep mb-1">الاسم الثلاثي *</label>
+                <input id="regName" type="text" required placeholder="مثال: أ. محمد عبد العزيز" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-3.5 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+              </div>
+              <div>
+                <label for="regRole" class="block text-xs font-bold text-emeraldDeep mb-1">نوع الحساب *</label>
+                <select id="regRole" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-3.5 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+                  <option value="مالك عقار">مالك شقة (يريد عرض شقته عبر الشركة)</option>
+                  <option value="مشتري / مستثمر">مشتري / باحث عن شقة</option>
+                </select>
+              </div>
+              <div>
+                <label for="regEmail" class="block text-xs font-bold text-emeraldDeep mb-1">البريد الإلكتروني *</label>
+                <input id="regEmail" type="email" required placeholder="name@example.com" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-3.5 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+              </div>
+              <div>
+                <label for="regPhone" class="block text-xs font-bold text-emeraldDeep mb-1">رقم الموبايل (إلزامي ويظهر للأدمن فقط) *</label>
+                <input id="regPhone" type="tel" required placeholder="01012345678" dir="ltr" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-3.5 py-2.5 text-sm text-right focus:outline-none focus:border-emeraldDeep" />
+              </div>
+              <div>
+                <label for="regCity" class="block text-xs font-bold text-emeraldDeep mb-1">المدينة *</label>
+                <select id="regCity" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-3.5 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+                  <option value="المنيا الجديدة">المنيا الجديدة</option>
+                  <option value="المنيا">المنيا</option>
+                  <option value="القاهرة الجديدة">القاهرة الجديدة</option>
+                  <option value="الشيخ زايد">الشيخ زايد</option>
+                  <option value="الإسكندرية">الإسكندرية</option>
+                </select>
+              </div>
+              <div>
+                <label for="regPass" class="block text-xs font-bold text-emeraldDeep mb-1">كلمة المرور *</label>
+                <input id="regPass" type="password" required placeholder="••••••••" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm/50 px-3.5 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+              </div>
+            </div>
+            <button type="submit" class="w-full bronze-gradient text-emeraldDeep font-black py-3.5 rounded-2xl text-sm shadow-lg hover:opacity-95 transition mt-2">
+              ✨ تسجيل الحساب وتفعيل إمكانية عرض الشقق
+            </button>
+          </form>
+        </div>
+
+        <!-- Profile Summary Card -->
+        <div class="lg:col-span-5 bg-ivoryCard rounded-3xl border border-bronzeChampagne/30 card-shadow p-6 space-y-5">
+          <div class="flex items-center justify-between border-b border-gray-200 pb-4">
+            <div class="flex items-center gap-3.5">
+              <div id="profileCardAvatar" class="w-14 h-14 rounded-2xl luxury-gradient text-bronzeChampagne font-extrabold text-xl flex items-center justify-center shadow-md border border-bronzeChampagne/40">م</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 id="profileCardName" class="text-lg font-extrabold text-emeraldDeep">م. ماجد ميلاد</h3>
+                  <span id="profileVerifiedBadge" class="px-2 py-0.5 text-[10px] rounded-full bg-emeraldLight text-emeraldDeep font-bold">الأدمن العام ✓</span>
+                </div>
+                <p id="profileCardRole" class="text-xs text-bronzeDark font-bold">مدير شركة Manzil2U</p>
+                <p id="profileCardCity" class="text-xs text-gray-500">📍 المنيا الجديدة</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 text-center">
+            <div class="p-3 rounded-2xl bg-ivoryWarm border border-gray-200">
+              <div id="profileStatOwned" class="text-xl font-extrabold text-emeraldDeep">0</div>
+              <div class="text-[11px] text-gray-600">شقق مسجلة</div>
+            </div>
+            <div class="p-3 rounded-2xl bg-ivoryWarm border border-gray-200">
+              <div id="profileStatSaved" class="text-xl font-extrabold text-bronzeDark">0</div>
+              <div class="text-[11px] text-gray-600">في المفضلة</div>
+            </div>
+            <div class="p-3 rounded-2xl bg-ivoryWarm border border-gray-200">
+              <div id="profileStatChats" class="text-xl font-extrabold text-emeraldDeep">0</div>
+              <div class="text-[11px] text-gray-600">محادثات الشركة</div>
+            </div>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between py-2 border-b border-gray-100">
+              <span class="text-gray-500">البريد الإلكتروني:</span>
+              <span id="profileCardEmail" class="font-bold text-emeraldDeep">admin@example.invalid</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-gray-100">
+              <span class="text-gray-500">رقم الهاتف (محفوظ لدى الأدمن فقط):</span>
+              <span id="profileCardPhone" class="font-bold text-emeraldDeep" dir="ltr">غير مسجل</span>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-extrabold text-emeraldDeep mb-2">الوحدات التي أضفتها من هذا الحساب:</h4>
+            <div id="profileUserListings" class="space-y-2 max-h-56 overflow-y-auto custom-scroll"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PROPERTY DETAILS MODAL (Shows Company Brokerage Contact Only, Hides Owner Phone) -->
+  <div id="propertyModal" class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-ivoryCard rounded-3xl max-w-4xl w-full border border-bronzeChampagne/40 shadow-2xl overflow-hidden my-8 animate-fade">
+      <div id="propertyModalContent"></div>
+    </div>
+  </div>
+
+  <!-- PRICE OFFER MODAL -->
+  <div id="offerModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-ivoryCard rounded-3xl max-w-md w-full border border-bronzeChampagne/40 shadow-2xl p-6 space-y-4 animate-fade">
+      <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+        <h3 class="text-lg font-extrabold text-emeraldDeep">💰 تقديم عرض شراء رسمي لشركة Manzil2U</h3>
+        <button type="button" onclick="closeOfferModal()" class="text-gray-400 hover:text-gray-700 font-bold text-lg">✕</button>
+      </div>
+      <form onsubmit="submitPriceOffer(event)" class="space-y-4">
+        <div>
+          <label for="offerAmountInput" class="block text-xs font-bold text-emeraldDeep mb-1">قيمة العرض المقترح (ج.م) *</label>
+          <input id="offerAmountInput" type="number" min="1000" required placeholder="مثال: 2500000" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+        </div>
+        <div>
+          <label for="offerPaymentType" class="block text-xs font-bold text-emeraldDeep mb-1">طريقة السداد *</label>
+          <select id="offerPaymentType" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep">
+            <option value="كاش فوري عند التعاقد">كاش فوري عند التعاقد</option>
+            <option value="مقدم 50% والباقي تقسيط">مقدم 50% والباقي تقسيط</option>
+            <option value="تمويل عقاري بنكي">تمويل عقاري بنكي</option>
+          </select>
+        </div>
+        <div>
+          <label for="offerNoteInput" class="block text-xs font-bold text-emeraldDeep mb-1">رقم هاتفك وملاحظتك للشركة</label>
+          <input id="offerNoteInput" type="text" placeholder="مثال: جاهز للمعاينة والتنفيذ عبر الشركة" class="w-full rounded-xl border border-gray-300 bg-ivoryWarm px-4 py-2.5 text-sm focus:outline-none focus:border-emeraldDeep" />
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeOfferModal()" class="px-4 py-2 rounded-xl border border-gray-300 text-xs font-bold text-gray-600">إلغاء</button>
+          <button type="submit" class="bronze-gradient text-emeraldDeep font-extrabold px-5 py-2.5 rounded-xl text-xs shadow">إرسال العرض لإدارة الشركة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#091B12] text-ivoryWarm/80 border-t border-bronzeChampagne/30 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div class="flex items-center gap-3">
+        <span class="brand-en text-lg font-bold text-bronzeChampagne">Manzil2U</span>
+        <span>•</span>
+        <span>شركة منزلك للوساطة والتسويق العقاري — جميع الحقوق محفوظة</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button type="button" onclick="switchView('explore')" class="hover:text-bronzeChampagne transition">معرض الشركة</button>
+        <button type="button" onclick="switchView('add')" class="hover:text-bronzeChampagne transition">اعرض شقتك</button>
+        <button type="button" onclick="switchView('chat')" class="hover:text-bronzeChampagne transition">تواصل مع الشركة</button>
+        <button type="button" onclick="switchView('dashboard')" class="hover:text-bronzeChampagne transition">الأدمن 🔒</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- APPLICATION SCRIPT (HIGH PERFORMANCE + SECURITY SANITIZATION + EMPTY INITIAL MARKETPLACE) -->
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #F7F5F0;
+      color: #121815;
+      overflow-x: hidden;
+    }
+    .brand-en {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.05em;
+    }
+    .luxury-gradient {
+      background: linear-gradient(135deg, #0B2217 0%, #123524 55%, #1B4D35 100%);
+    }
+    .obsidian-card {
+      background: linear-gradient(145deg, #101A15 0%, #162B20 100%);
+    }
+    .bronze-gradient {
+      background: linear-gradient(135deg, #C5A059 0%, #E0C17E 50%, #A6823C 100%);
+    }
+    .card-shadow {
+      box-shadow: 0 14px 34px -12px rgba(18, 53, 36, 0.10), 0 4px 14px -4px rgba(197, 160, 89, 0.10);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #F7F5F0;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #C5A059;
+      border-radius: 9999px;
+    }
+    .nav-btn-active {
+      background: linear-gradient(135deg, #C5A059 0%, #D9B872 100%);
+      color: #0B2217;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade {
+      animation: fadeIn 0.2s ease-out forwards;
+    }
